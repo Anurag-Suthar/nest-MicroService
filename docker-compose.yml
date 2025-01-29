@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  reservations:
+    build:
+      context: .
+      target: development
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    env_file:
+      - .env
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    command: "pnpm run start:dev"
+  mongo:
+    image: mongo
