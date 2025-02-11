@@ -12,12 +12,10 @@ services:
       - NODE_ENV=development
     env_file:
       - .env
-    volumes:
-      - .:/usr/src/app
+    # volumes:
+    #   - .:/usr/src/app
       # - /usr/src/app/node_modules
-    command: "pnpm run start:dev reservations"
-  mongo:
-    image: mongo
+    command: pnpm run start:dev reservations
   auth:
     build: 
       context: .
@@ -29,7 +27,9 @@ services:
       - NODE_ENV=development
     env_file:
       - .env
-    volumes:
-      - .:/usr/src/app
+    # volumes:
+    #   - .:/usr/src/app
       # - /usr/src/app/node_modules
-    command: "pnpm run start:dev auth"
+    command: pnpm run start:dev auth
+  mongo:
+    image: mongo

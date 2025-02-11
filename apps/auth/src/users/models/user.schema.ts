@@ -1,4 +1,4 @@
-import { AbstractDocument, AbstractRepository } from '@app/common';
+import { AbstractDocument } from '@app/common';
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
