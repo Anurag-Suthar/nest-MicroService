@@ -7,23 +7,27 @@ services:
       dockerfile: ./apps/reservations/Dockerfile
       target: development
     ports:
-      - "3000:3000"
+      - 3000:3000
     environment:
       - NODE_ENV=development
     env_file:
       - .env
     command: pnpm run start:dev reservations
+    # volumes:
+    #   - .:/usr/src/app
   auth:
     build: 
       context: .
       dockerfile: ./apps/auth/Dockerfile
       target: development
     ports:
-      - "3001:3001"
+      - 3001:3001
     environment:
       - NODE_ENV=development
     env_file:
       - .env
+    # volumes:
+    #   - .:/usr/src/app
     command: pnpm run start:dev auth
 
   mongo:
