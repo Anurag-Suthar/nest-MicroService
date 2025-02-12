@@ -29,7 +29,20 @@ services:
     # volumes:
     #   - .:/usr/src/app
     command: pnpm run start:dev auth
-
+  payments:
+    build: 
+      context: .
+      dockerfile: ./apps/payments/Dockerfile
+      target: development
+    ports:
+      - 3003:3003
+    environment:
+      - NODE_ENV=development
+    env_file:
+      - ./apps/payments/.env
+    # volumes:
+    #   - .:/usr/src/app
+    command: pnpm run start:dev payments
   mongo:
     image: mongo
     restart: always
