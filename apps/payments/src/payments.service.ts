@@ -3,14 +3,15 @@ import { ConfigService } from '@nestjs/config';
 import Razorpay from 'razorpay';
 import * as crypto from 'crypto';
 import { CreateOrderDto } from './dto/create-order.dto';
+import { MessagePattern } from '@nestjs/microservices';
 
 @Injectable()
 export class PaymentsService {
+  constructor(private readonly configService: ConfigService) {}
   private razorpay = new Razorpay({
     key_id: this.configService.get('RAZORPAY_KEY_ID'),
     key_secret: this.configService.get('RAZORPAY_SECRET'),
   });
-  constructor(private readonly configService: ConfigService) {}
 
   async createOrder({ amount, currency }: CreateOrderDto) {
     const options = {

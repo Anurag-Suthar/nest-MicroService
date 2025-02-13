@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { PaymentsService } from './payments.service';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { CreateOrderDto } from './dto/create-order.dto';
@@ -7,8 +14,9 @@ import { CreateOrderDto } from './dto/create-order.dto';
 export class PaymentsController {
   constructor(private readonly paymentsService: PaymentsService) {}
 
-  @MessagePattern('create-order')
-  @Post('create-order')
+  @MessagePattern('create_order')
+  @UsePipes(new ValidationPipe())
+  // @Post('create-order')
   async createOrder(@Payload() data: CreateOrderDto) {
     return this.paymentsService.createOrder(data);
   }
