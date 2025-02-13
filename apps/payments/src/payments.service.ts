@@ -1,24 +1,33 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import Razorpay from 'razorpay';
 import * as crypto from 'crypto';
 import { CreateOrderDto } from './dto/create-order.dto';
-import { MessagePattern } from '@nestjs/microservices';
+import { NOTIFICATIONS_SREVICE } from '@app/common';
+import { ClientProxy } from '@nestjs/microservices';
+import { PaymentsCreateOrderDto } from './dto/payments-create-order.dto';
 
 @Injectable()
 export class PaymentsService {
-  constructor(private readonly configService: ConfigService) {}
+  constructor(
+    private readonly configService: ConfigService,
+    @Inject(NOTIFICATIONS_SREVICE)
+    private readonly notificationsService: ClientProxy,
+  ) {}
+
   private razorpay = new Razorpay({
     key_id: this.configService.get('RAZORPAY_KEY_ID'),
     key_secret: this.configService.get('RAZORPAY_SECRET'),
   });
 
-  async createOrder({ amount, currency }: CreateOrderDto) {
+  async createOrder({ amount, currency, email }: PaymentsCreateOrderDto) {
     const options = {
       amount: amount * 100, // Razorpay accepts amount in paise
       currency,
       payment_capture: 1,
     };
+
+    this.notificationsService.emit('notify_email', { email });
 
     try {
       const order = await this.razorpay.orders.create(options);

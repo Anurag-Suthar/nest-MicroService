@@ -9,6 +9,7 @@ import {
 import { PaymentsService } from './payments.service';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { CreateOrderDto } from './dto/create-order.dto';
+import { PaymentsCreateOrderDto } from './dto/payments-create-order.dto';
 
 @Controller()
 export class PaymentsController {
@@ -17,7 +18,7 @@ export class PaymentsController {
   @MessagePattern('create_order')
   @UsePipes(new ValidationPipe())
   // @Post('create-order')
-  async createOrder(@Payload() data: CreateOrderDto) {
+  async createOrder(@Payload() data: PaymentsCreateOrderDto) {
     return this.paymentsService.createOrder(data);
   }
 

@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { PaymentsController } from './payments.controller';
 import { PaymentsService } from './payments.service';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Joi from 'joi';
-import { LoggerModule } from '@app/common';
+import { LoggerModule, NOTIFICATIONS_SREVICE } from '@app/common';
+import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
   imports: [
@@ -13,9 +14,24 @@ import { LoggerModule } from '@app/common';
         PORT: Joi.number().required(),
         RAZORPAY_KEY_ID: Joi.string().required(),
         RAZORPAY_SECRET: Joi.string().required(),
+        NOTIFICATIONS_HOST: Joi.string().required(),
+        NOTIFICATIONS_PORT: Joi.number().required(),
       }),
     }),
     LoggerModule,
+    ClientsModule.registerAsync([
+      {
+        name: NOTIFICATIONS_SREVICE,
+        useFactory: (configService: ConfigService) => ({
+          transport: Transport.TCP,
+          options: {
+            host: configService.get('NOTIFICATIONS_HOST'),
+            port: configService.get('NOTIFICATIONS_PORT'),
+          },
+        }),
+        inject: [ConfigService],
+      },
+    ]),
   ],
   controllers: [PaymentsController],
   providers: [PaymentsService],
