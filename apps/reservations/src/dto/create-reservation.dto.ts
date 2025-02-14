@@ -7,7 +7,7 @@ import {
   ValidateNested,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { CreateOrderDto } from 'apps/payments/src/dto/create-order.dto';
+import { CreateOrderDto } from '@app/common';
 
 export class CreateReservationDto {
   @IsDate()

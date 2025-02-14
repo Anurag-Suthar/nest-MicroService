@@ -2,7 +2,6 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import Razorpay from 'razorpay';
 import * as crypto from 'crypto';
-import { CreateOrderDto } from './dto/create-order.dto';
 import { NOTIFICATIONS_SREVICE } from '@app/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { PaymentsCreateOrderDto } from './dto/payments-create-order.dto';

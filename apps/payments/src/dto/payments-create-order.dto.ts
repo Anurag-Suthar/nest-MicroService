@@ -1,5 +1,5 @@
 import { IsEmail } from 'class-validator';
-import { CreateOrderDto } from './create-order.dto';
+import { CreateOrderDto } from '@app/common';
 
 export class PaymentsCreateOrderDto extends CreateOrderDto {
   @IsEmail()

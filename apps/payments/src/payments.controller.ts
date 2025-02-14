@@ -8,7 +8,6 @@ import {
 } from '@nestjs/common';
 import { PaymentsService } from './payments.service';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { CreateOrderDto } from './dto/create-order.dto';
 import { PaymentsCreateOrderDto } from './dto/payments-create-order.dto';
 
 @Controller()
