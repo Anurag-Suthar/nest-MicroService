@@ -5,12 +5,13 @@ WORKDIR /usr/src/app
 
 COPY package.json ./
 COPY pnpm-lock.yaml ./
-# COPY .env ./
+COPY tsconfig.json tsconfig.ts
 
 RUN npm install -g pnpm
 RUN pnpm install
 
-COPY . .
+COPY apps/reservations apps/reservations
+COPY libs libs
 
 RUN pnpm run build
 

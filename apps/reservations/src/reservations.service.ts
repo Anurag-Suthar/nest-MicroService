@@ -3,10 +3,9 @@ import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { ReservationRepository } from './reservation.repository';
 import { PAYMENTS_SREVICE, UserDto } from '@app/common';
-import { PaymentsService } from 'apps/payments/src/payments.service';
-import { ClientProvider, ClientProxy } from '@nestjs/microservices';
+
+import { ClientProxy } from '@nestjs/microservices';
 import { map } from 'rxjs';
-import { UserDocument } from 'apps/auth/src/users/models/user.schema';
 
 @Injectable()
 export class ReservationsService {
