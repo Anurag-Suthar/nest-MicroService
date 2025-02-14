@@ -11,6 +11,9 @@ import { LoggerModule } from '@app/common';
       isGlobal: true,
       validationSchema: Joi.object({
         PORT: Joi.number().required(),
+        SMTP_HOST: Joi.string().required(),
+        BREVO_SMTP_PASSWORD: Joi.string().required(),
+        BREVO_SMTP_USER: Joi.string().required(),
       }),
     }),
     LoggerModule,

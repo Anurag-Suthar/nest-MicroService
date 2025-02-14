@@ -6,6 +6,7 @@ import { CreateOrderDto } from './dto/create-order.dto';
 import { NOTIFICATIONS_SREVICE } from '@app/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { PaymentsCreateOrderDto } from './dto/payments-create-order.dto';
+import { text } from 'stream/consumers';
 
 @Injectable()
 export class PaymentsService {
@@ -27,7 +28,10 @@ export class PaymentsService {
       payment_capture: 1,
     };
 
-    this.notificationsService.emit('notify_email', { email });
+    this.notificationsService.emit('notify_email', {
+      email,
+      text: `Your payment of ${options.amount} has complete successfully `,
+    });
 
     try {
       const order = await this.razorpay.orders.create(options);
