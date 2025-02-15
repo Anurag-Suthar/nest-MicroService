@@ -1,0 +1,68 @@
+services:
+  e2e:
+    build: 
+      dockerfile: ./Dockerfile
+    volumes:
+      -./specs:/usr/src/app/specs
+  reservations:
+    build:
+      context: .
+      dockerfile: ./apps/reservations/Dockerfile
+      target: development
+    ports:
+      - 3000:3000
+    environment:
+      - NODE_ENV=development
+    env_file:
+      - ./apps/reservations/.env
+    command: pnpm run start:dev reservations
+    # volumes:
+    #   - .:/usr/src/app
+  auth:
+    build: 
+      context: .
+      dockerfile: ./apps/auth/Dockerfile
+      target: development
+    ports:
+      - 3001:3001
+    environment:
+      - NODE_ENV=development
+    env_file:
+      - ./apps/auth/.env
+    # volumes:
+    #   - .:/usr/src/app
+    command: pnpm run start:dev auth
+  payments:
+    build: 
+      context: .
+      dockerfile: ./apps/payments/Dockerfile
+      target: development
+
+    environment:
+      - NODE_ENV=development
+    env_file:
+      - ./apps/payments/.env
+    # volumes:
+    #   - .:/usr/src/app
+    command: pnpm run start:dev payments
+  notifications:
+    build: 
+      context: .
+      dockerfile: ./apps/notifications/Dockerfile
+      target: development
+    environment:
+      - NODE_ENV=development
+    env_file:
+      - ./apps/notifications/.env
+    # volumes:
+    #   - .:/usr/src/app
+    command: pnpm run start:dev notifications
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"  # Expose MongoDB to your local machine
+    volumes:
+      - mongo-data:/data/db  # Persist MongoDB data
+volumes:
+  mongo-data:
