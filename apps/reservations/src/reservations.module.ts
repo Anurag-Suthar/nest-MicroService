@@ -4,6 +4,7 @@ import { ReservationsController } from './reservations.controller';
 import {
   AUTH_SERVICE,
   DatabaseModule,
+  HealthModule,
   LoggerModule,
   PAYMENTS_SREVICE,
 } from '@app/common';
@@ -59,6 +60,7 @@ import { config } from 'process';
         inject: [ConfigService],
       },
     ]),
+    HealthModule,
   ],
 
   controllers: [ReservationsController],
