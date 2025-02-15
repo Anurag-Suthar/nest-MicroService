@@ -1,0 +1,54 @@
+steps:
+# Rervations sections
+  - name: 'gvr.io/cloud-builders/docker'
+    args:
+      [
+        'build',
+        '-t',
+        'url of actual repo /reservations/production',
+        '-f',
+        'apps/reservations/Dockerfile',
+      ]
+  - name: 'gvr.io/cloud-builders/docker'
+    args: ['push', 'url of actual repo /reservations/production']
+
+
+    # Auth sections
+    - name: 'gvr.io/cloud-builders/docker'
+    args:
+      [
+        'build',
+        '-t',
+        'url of actual repo /auth/production',
+        '-f',
+        'apps/auth/Dockerfile',
+      ]
+  - name: 'gvr.io/cloud-builders/docker'
+    args: ['push', 'url of actual repo /auth/production']
+
+    # payments sections
+    - name: 'gvr.io/cloud-builders/docker'
+    args:
+      [
+        'build',
+        '-t',
+        'url of actual repo /payments/production',
+        '-f',
+        'apps/payments/Dockerfile',
+      ]
+  - name: 'gvr.io/cloud-builders/docker'
+    args: ['push', 'url of actual repo /payments/production']
+
+
+    # Notifications sections
+    - name: 'gvr.io/cloud-builders/docker'
+    args:
+      [
+        'build',
+        '-t',
+        'url of actual repo /notifications/production',
+        '-f',
+        'apps/notifications/Dockerfile',
+      ]
+  - name: 'gvr.io/cloud-builders/docker'
+    args: ['push', 'url of actual repo /notifications/production']
