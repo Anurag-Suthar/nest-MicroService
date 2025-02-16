@@ -56,12 +56,18 @@ services:
     # volumes:
     #   - .:/usr/src/app
     command: pnpm run start:dev notifications
-  mongo:
-    image: mongo
-    restart: always
+#   mongo:
+#     image: mongo
+#     restart: always
+#     ports:
+#       - "27017:27017"  # Expose MongoDB to your local machine
+#     volumes:
+#       - mongo-data:/data/db  # Persist MongoDB data
+# volumes:
+#   mongo-data:
+  mysql:
+    image: mysql
+    env_file:
+      - .env
     ports:
-      - "27017:27017"  # Expose MongoDB to your local machine
-    volumes:
-      - mongo-data:/data/db  # Persist MongoDB data
-volumes:
-  mongo-data:
+      - '3306:3306'
