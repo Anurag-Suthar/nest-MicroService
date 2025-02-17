@@ -6,8 +6,8 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
-import { Type } from 'class-transformer';
 import { CreateOrderDto } from '@app/common';
+import { Type } from 'class-transformer';
 
 export class CreateReservationDto {
   @IsDate()
