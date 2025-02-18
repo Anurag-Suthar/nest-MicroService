@@ -7,7 +7,12 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { PaymentsService } from './payments.service';
-import { MessagePattern, Payload } from '@nestjs/microservices';
+import {
+  Ctx,
+  MessagePattern,
+  Payload,
+  RmqContext,
+} from '@nestjs/microservices';
 import { PaymentsCreateOrderDto } from './dto/payments-create-order.dto';
 
 @Controller()
@@ -17,7 +22,15 @@ export class PaymentsController {
   @MessagePattern('create_order')
   @UsePipes(new ValidationPipe())
   // @Post('create-order')
-  async createOrder(@Payload() data: PaymentsCreateOrderDto) {
+  async createOrder(
+    @Payload() data: PaymentsCreateOrderDto,
+    @Ctx() context: RmqContext,
+  ) {
+    const channel = context.getChannelRef();
+    const originalMsg = context.getMessage();
+
+    channel.ack(originalMsg);
+
     return this.paymentsService.createOrder(data);
   }
 

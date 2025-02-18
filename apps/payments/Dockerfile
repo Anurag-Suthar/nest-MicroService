@@ -1,5 +1,5 @@
 # Development Stage
-FROM node:19-alpine AS development
+FROM node:alpine AS development
 
 WORKDIR /usr/src/app
 
@@ -24,7 +24,7 @@ RUN cd  apps/payments && pnpm install
 RUN pnpm run build payments
 
 # Production Stage
-FROM node:19-alpine AS production
+FROM node:alpine AS production
 
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
